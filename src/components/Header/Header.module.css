@@ -1,0 +1,70 @@
+.transitions-header {
+  list-style-type: none;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.transitions-header:hover {
+  color: #f16331;
+}
+
+.transitions-header:hover::after {
+  width: 100%;
+}
+
+.transitions-header::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #f16331;
+  height: 2px;
+  width: 0px;
+  content: "";
+  transition-property: all;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.sign-in {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.sign-in-hover {
+  position: absolute;
+  z-index: 100;
+  top: 100%;
+  left: -30%;
+  background: #dddddd;
+  width: 250%;
+  border-radius: 5%;
+  display: none;
+  padding: 5px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sign-in a {
+  display: block;
+}
+
+.sign-in-hover a:hover {
+  color:#f16331
+}
+
+.sign-in-hover::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: 13px;
+  border-bottom: 8px solid #dddddd;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+
+.sign-in:hover .sign-in-hover {
+  display: block;
+}
