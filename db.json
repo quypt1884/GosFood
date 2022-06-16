@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$8lzFwCzbVhWlZ7X6iFCN4.Eyxy9zhLhWRSdJRDcbQi9fDVNwo7lQ.",
+      "avatar": "",
+      "firstName": "admin",
+      "lastName": "1",
+      "phone": "0918982234",
+      "address": "Hà Nội",
+      "gender": "Nữ",
+      "id": 1
+    }
+  ]
+}
