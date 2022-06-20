@@ -4,7 +4,9 @@ import {
   PhoneOutlined,
   TwitterOutlined
 } from "@ant-design/icons";
+
 import logo from "assets/logo.png";
+
 const Footer = () => {
   return (
     <div className="max-w-7xl mx-auto p-5">

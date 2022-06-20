@@ -5,7 +5,7 @@ import { SERVICE_API } from "constants/configs";
 const request = axios.create({
   baseURL: SERVICE_API,
   headers: {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   }
 });
 

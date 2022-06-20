@@ -2,14 +2,54 @@
   "users": [
     {
       "email": "admin@gmail.com",
-      "password": "$2a$10$8lzFwCzbVhWlZ7X6iFCN4.Eyxy9zhLhWRSdJRDcbQi9fDVNwo7lQ.",
+      "password": "$2a$10$cIRcqrDQUhHv07fGF2AwL.KKhAX0BlxKG811LcpnL/5aFisyBpNme",
       "avatar": "",
       "firstName": "admin",
       "lastName": "1",
       "phone": "0918982234",
       "address": "Hà Nội",
-      "gender": "Nữ",
-      "id": 1
+      "id": 1,
+      "isAdmin": true
+    },
+    {
+      "email": "quy@gmail.com",
+      "password": "$2a$10$ntwJc3q9238nKQ73Fkfyaea3GQ3dOJ9rPpAn6HbTG6V.yASadX5qe",
+      "firstName": "quy",
+      "lastName": "quy",
+      "phone": "0918982240",
+      "address": "QUYPHAN",
+      "isAdmin": false,
+      "id": 2
+    },
+    {
+      "email": "quy2@gmail.com",
+      "password": "$2a$10$Nxtm2OTgER2okO2ty.95MeeCuxmq/ZSOPokMIJpFia9gOPbm2qX.6",
+      "firstName": "wefr",
+      "lastName": "fewr",
+      "phone": "0918982240",
+      "address": "fref",
+      "isAdmin": false,
+      "id": 3
+    },
+    {
+      "email": "quy22@gmail.com",
+      "password": "$2a$10$7YXZ5hp7avvcGoLYFR5bduRW/ksu9LLxJTP45Ju1dMiqwWAAjHKOy",
+      "firstName": "êrrrrr",
+      "lastName": "rrrrrr",
+      "phone": "0918982240",
+      "address": "ẻttrtre",
+      "isAdmin": false,
+      "id": 4
+    },
+    {
+      "email": "quy3@gmail.com",
+      "password": "$2a$10$v2ueWx.UiQZmc1BOx.VE1.f5Pgzyw/6nOT9/zQZmG5YKIHdhpEBKq",
+      "firstName": "ẻfrfr",
+      "lastName": "grgr",
+      "phone": "0918992240",
+      "address": "rgr",
+      "isAdmin": false,
+      "id": 5
     }
   ]
 }
