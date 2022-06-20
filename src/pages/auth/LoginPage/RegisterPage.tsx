@@ -1,9 +1,9 @@
-import Register from 'modules/auth/Register/SignUp'
+import SignUp from 'modules/auth/Register/SignUp'
 
 const RegisterPage = () => {
   return (
     <>
-        <Register/>
+        <SignUp/>
     </>
   )
 }
