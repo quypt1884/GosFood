@@ -1,12 +1,40 @@
-import { Button, Checkbox, Form, Input } from "antd";
-import { FC } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "store/authSlice";
+import { Button, Checkbox, Form, Input, notification } from "antd";
+import { FC, useEffect } from "react";
+
+import { AppDispatch, RootState } from "store";
+import { InitialStateType, login, reset } from "store/authSlice";
 
 const Login: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
+  const { users, isError, message, token }: InitialStateType = useSelector(
+    (state: RootState) => state.auth
+  );
+  useEffect(() => {
+    if (isError) {
+      notification.error({
+        message: "Error login",
+        description: message
+      });
+    }
+
+    if (token && users?.isAdmin === true) {
+      notification.success({
+        message: "Success login admin"
+      });
+      navigate("/admin");
+    }
+
+    if (token && users?.isAdmin === false) {
+      notification.success({
+        message: "Success login client"
+      });
+    }
+    dispatch(reset());
+  }, [users]);
   function handleSubmit(values: any) {
     dispatch(login(values));
   }
@@ -16,6 +44,7 @@ const Login: FC = () => {
   };
   return (
     <div className="mx-auto my-0 max-w-7xl">
+      <h1 className="flex justify-center text-2xl text-[#f16331]">Sign in</h1>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -23,13 +52,13 @@ const Login: FC = () => {
         initialValues={{ remember: true }}
         onFinish={handleSubmit}
         onFinishFailed={onFinishFailed}
-        autoComplete="off"
+        autoComplete="on"
         className="my-9 w-1/2 mx-auto"
       >
         <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: "Please input your email!" }]}
         >
           <Input />
         </Form.Item>

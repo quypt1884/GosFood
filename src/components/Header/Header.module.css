@@ -1,18 +1,17 @@
 .transitions-header {
   list-style-type: none;
-  position: relative;
   padding-bottom: 4px;
 }
 
-.transitions-header:hover {
-  color: #f16331;
+.transitions-header a {
+  position: relative;
 }
 
-.transitions-header:hover::after {
+.transitions-header a:hover::after {
   width: 100%;
 }
 
-.transitions-header::after {
+.transitions-header a::after {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -31,15 +30,16 @@
   align-items: center;
   position: relative;
   cursor: pointer;
+  margin-left: 5px;
 }
 
 .sign-in-hover {
   position: absolute;
   z-index: 100;
   top: 100%;
-  left: -30%;
+  left: -8%;
   background: #dddddd;
-  width: 250%;
+  width: 7rem;
   border-radius: 5%;
   display: none;
   padding: 5px;
