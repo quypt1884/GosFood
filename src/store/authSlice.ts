@@ -11,8 +11,16 @@ export const login = createAsyncThunk(
     try {
       const response = await axios.post("http://localhost:3000/login", params);
       if (response.data) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        window.location.href = "/";
+        localStorage.setItem(
+          "user",
+          JSON.stringify(response.data.user)
+        );
+        if(response.data.user.isAdmin === true) {
+          window.location.href = "/admin";
+        }
+        if(response.data.user.isAdmin === false) {
+          window.location.href = "/";
+        }
       }
       return response.data;
     } catch (error: any) {
@@ -37,7 +45,10 @@ export const register = createAsyncThunk(
         isAdmin: false
       });
       if (response.data) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem(
+          "user",
+          JSON.stringify(response.data.user)
+        );
         window.location.href = "/";
       }
       return response.data;
@@ -48,6 +59,22 @@ export const register = createAsyncThunk(
   }
 );
 
+// export const getUsers = createAsyncThunk(
+//   "auth/users",
+//   async (tokenLocal: string, thunkApi) => {
+//     try {
+//       const response = await axios.get("http://localhost:3000/660/users", {
+//         headers: {
+//           Authorization: `Bearer ${tokenLocal}`
+//         },
+//       });
+//       return response.data;
+//     } catch (error: any) {
+//       const message = error.response.data;
+//       return thunkApi.rejectWithValue(message);
+//     }
+//   }
+// );
 export interface InitialStateType {
   users: IUser;
   isLoading: boolean;
@@ -114,6 +141,7 @@ const authSlice = createSlice({
         state.message = action.payload;
         state.users = {} as IUser;
       });
+      
   }
 });
 

@@ -25,7 +25,6 @@ const Login: FC = () => {
       notification.success({
         message: "Success login admin"
       });
-      navigate("/admin");
     }
 
     if (token && users?.isAdmin === false) {
