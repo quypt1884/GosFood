@@ -8,12 +8,17 @@ import {
   PATH_UER_ABOUTUS,
   PATH_REGISTER,
   PATH_LOGIN,
-  PATH_ADMIN
+  PATH_ADMIN,
+  PATH_ADMIN_CATEGORY,
+  PATH_ADMIN_USER,
+  PATH_ADMIN_ORDER,
+  PATH_ADMIN_PRODUCT
 } from "routes/routes.paths";
 import HomePage from "pages/app/HomePage/HomePage";
 import LoginPage from "pages/auth/LoginPage/LoginPage";
 import Dashboard from "pages/admin/Dashboard/Dashboard";
 import RegisterPage from "pages/auth/LoginPage/RegisterPage";
+import Categories from "pages/admin/Categories/Categories";
 
 const ContainerLayout = () => {
   return (
@@ -30,6 +35,10 @@ const ContainerLayout = () => {
         </Route>
         <Route element={<AdminLayout />}>
           <Route path={PATH_ADMIN} element={<Dashboard />} />
+          <Route path={PATH_ADMIN_CATEGORY} element={<Categories />} />
+          <Route path={PATH_ADMIN_USER} element={<Dashboard />} />
+          <Route path={PATH_ADMIN_PRODUCT} element={<Dashboard />} />
+          <Route path={PATH_ADMIN_ORDER} element={<Dashboard />} />
         </Route>
       </Routes>
     </div>
