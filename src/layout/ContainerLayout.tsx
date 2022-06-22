@@ -12,13 +12,25 @@ import {
   PATH_ADMIN_CATEGORY,
   PATH_ADMIN_USER,
   PATH_ADMIN_ORDER,
-  PATH_ADMIN_PRODUCT
+  PATH_ADMIN_PRODUCT,
+  PATH_ADMIN_PRODUCT_ADD,
+  PATH_ADMIN_PRODUCT_EDIT,
+  PATH_ADMIN_PRODUCT_DETAIL,
+  PATH_ADMIN_CATEGORY_EDIT,
+  PATH_ADMIN_CATEGORY_DETAIL,
+  PATH_ADMIN_CATEGORY_ADD
 } from "routes/routes.paths";
 import HomePage from "pages/app/HomePage/HomePage";
 import LoginPage from "pages/auth/LoginPage/LoginPage";
 import Dashboard from "pages/admin/Dashboard/Dashboard";
 import RegisterPage from "pages/auth/LoginPage/RegisterPage";
-import Categories from "pages/admin/Categories/Categories";
+import ProductListPage from "pages/admin/ProductsPage/ProductListPage";
+import ProductAddPage from "pages/admin/ProductsPage/ProductAddPage";
+import ProductDetailPage from "pages/admin/ProductsPage/ProductDetailPage";
+import CategoriListPage from "pages/admin/Categories/CategoriListPage";
+import CategoriDetailPage from "pages/admin/Categories/CategoriDetailPage";
+import CategoriAddPage from "pages/admin/Categories/CategoriAddPage";
+import CategoriEditPage from "pages/admin/Categories/CategoriEditPage";
 
 const ContainerLayout = () => {
   return (
@@ -35,9 +47,19 @@ const ContainerLayout = () => {
         </Route>
         <Route element={<AdminLayout />}>
           <Route path={PATH_ADMIN} element={<Dashboard />} />
-          <Route path={PATH_ADMIN_CATEGORY} element={<Categories />} />
+          
+          <Route path={PATH_ADMIN_CATEGORY} element={<CategoriListPage />} />
+          <Route path={PATH_ADMIN_CATEGORY_DETAIL} element={<CategoriDetailPage />} />
+          <Route path={PATH_ADMIN_CATEGORY_ADD} element={<CategoriAddPage />} />
+          <Route path={PATH_ADMIN_CATEGORY_EDIT} element={<CategoriEditPage/>} />
+
           <Route path={PATH_ADMIN_USER} element={<Dashboard />} />
-          <Route path={PATH_ADMIN_PRODUCT} element={<Dashboard />} />
+
+          <Route path={PATH_ADMIN_PRODUCT} element={<ProductListPage />} />
+          <Route path={PATH_ADMIN_PRODUCT_ADD} element={<ProductAddPage />} />
+          <Route path={PATH_ADMIN_PRODUCT_EDIT} element={<ProductAddPage />} />
+          <Route path={PATH_ADMIN_PRODUCT_DETAIL} element={<ProductDetailPage />} />
+
           <Route path={PATH_ADMIN_ORDER} element={<Dashboard />} />
         </Route>
       </Routes>
