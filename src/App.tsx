@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.less";
 import ContainerLayout from "layout/ContainerLayout";
 
 function App() {

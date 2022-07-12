@@ -2,54 +2,671 @@
   "users": [
     {
       "email": "admin@gmail.com",
-      "password": "$2a$10$cIRcqrDQUhHv07fGF2AwL.KKhAX0BlxKG811LcpnL/5aFisyBpNme",
-      "avatar": "",
-      "firstName": "admin",
-      "lastName": "1",
-      "phone": "0918982234",
-      "address": "Hà Nội",
-      "id": 1,
-      "isAdmin": true
-    },
-    {
-      "email": "quy@gmail.com",
-      "password": "$2a$10$ntwJc3q9238nKQ73Fkfyaea3GQ3dOJ9rPpAn6HbTG6V.yASadX5qe",
+      "password": "$2a$10$TnjBlmB6eOFWRDYQ2zX8SuhqOf1b/u9AlvwOmYMwP0r987OsQu2jC",
       "firstName": "quy",
-      "lastName": "quy",
-      "phone": "0918982240",
-      "address": "QUYPHAN",
-      "isAdmin": false,
-      "id": 2
-    },
-    {
-      "email": "quy2@gmail.com",
-      "password": "$2a$10$Nxtm2OTgER2okO2ty.95MeeCuxmq/ZSOPokMIJpFia9gOPbm2qX.6",
-      "firstName": "wefr",
-      "lastName": "fewr",
+      "lastName": "phan",
       "phone": "0918982240",
       "address": "fref",
       "isAdmin": false,
       "id": 3
     },
     {
-      "email": "quy22@gmail.com",
-      "password": "$2a$10$7YXZ5hp7avvcGoLYFR5bduRW/ksu9LLxJTP45Ju1dMiqwWAAjHKOy",
-      "firstName": "êrrrrr",
-      "lastName": "rrrrrr",
+      "email": "quy@gmail.com",
+      "password": "$2a$10$4rCh32r8xzU29ezoO4uUxOdt6Cmg9420wCBz65v.kWVExNPJkPQ3G",
+      "firstName": "quy",
+      "lastName": "phan",
       "phone": "0918982240",
-      "address": "ẻttrtre",
-      "isAdmin": false,
+      "address": "fref",
+      "isAdmin": true,
+      "id": 4
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Noodle and vermicelli",
+      "description": "all kinds of vermicelli or noodles"
+    },
+    {
+      "name": "Rice",
+      "description": "all kinds of rice such as fried rice, chicken rice with curry sauce",
+      "id": 2
+    },
+    {
+      "name": "chicken",
+      "description": "all kinds of chicken such as fried chicken, roasted chicken",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "dsfg",
+      "description": "this is category\n"
+    },
+    {
+      "name": "fdsgd",
+      "description": "gdfgs",
+      "id": 5
+    },
+    {
+      "id": 6,
+      "name": "Beef",
+      "description": "About beef heh\n"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Stir-fried beef with pineapple",
+      "categoryId": 6,
+      "size": "medium",
+      "price": 8,
+      "discount": "5",
+      "decription": "Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036439/gosFood/productFood/food-7_rav8ty.jpg",
+      "isStock": false,
+      "newPrice": 7.6
+    },
+    {
+      "id": 2,
+      "name": "9",
+      "categoryId": 6,
+      "size": "medium",
+      "price": 10,
+      "discount": "5",
+      "decription": "Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036439/gosFood/productFood/food-7_rav8ty.jpg",
+      "isStock": true,
+      "newPrice": 9.5
+    },
+    {
+      "id": 3,
+      "name": "dumplings",
+      "categoryId": 3,
+      "size": "medium",
+      "price": 23,
+      "decription": "Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036438/gosFood/productFood/food-4_zxj1av.jpg",
+      "isStock": true,
+      "newPrice": 23
+    },
+    {
+      "id": 6,
+      "name": "6",
+      "categoryId": 3,
+      "size": "small",
+      "price": 10,
+      "discount": "5",
+      "decription": " Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036438/gosFood/productFood/food-4_zxj1av.jpg",
+      "newPrice": 9.5,
+      "isStock": false
+    },
+    {
+      "id": 7,
+      "name": "5",
+      "categoryId": 3,
+      "size": "small",
+      "price": 4,
+      "discount": "5",
+      "decription": "Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036438/gosFood/productFood/food-4_zxj1av.jpg",
+      "isStock": false,
+      "newPrice": 3.8
+    },
+    {
+      "id": 8,
+      "name": "hamburger",
+      "categoryId": 3,
+      "size": "small",
+      "price": 6,
+      "discount": "5",
+      "decription": "Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036438/gosFood/productFood/food-4_zxj1av.jpg",
+      "isStock": false,
+      "newPrice": 5.7
+    },
+    {
+      "id": 9,
+      "name": "potato fried",
+      "categoryId": 3,
+      "size": "small",
+      "price": 7,
+      "discount": "5",
+      "decription": "Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036438/gosFood/productFood/food-4_zxj1av.jpg",
+      "isStock": false,
+      "newPrice": 6.65
+    },
+    {
+      "id": 10,
+      "name": "chicken fried",
+      "categoryId": 3,
+      "size": "small",
+      "price": 12,
+      "discount": "5",
+      "decription": "Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036438/gosFood/productFood/food-4_zxj1av.jpg",
+      "isStock": false,
+      "newPrice": 11.4
+    },
+    {
+      "id": 11,
+      "name": "noodle",
+      "categoryId": 1,
+      "size": "ưergw",
+      "price": 4,
+      "discount": "5",
+      "decription": "Descript Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptate, nulla! Cupiditate expedita doloremque illo repellendus est a ratione libero minus debitis. ",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036439/gosFood/productFood/food-2_igedj9.jpg",
+      "isStock": true,
+      "newPrice": 3.8
+    },
+    {
+      "id": 12,
+      "name": "mango",
+      "categoryId": 5,
+      "size": "ádf",
+      "price": 123,
+      "decription": "this is mango",
+      "thumbnail": "https://res.cloudinary.com/quy/image/upload/v1656036437/gosFood/productFood/food-6_epdh7l.jpg",
+      "isStock": false,
+      "newPrice": 123
+    }
+  ],
+  "orders": [
+    {
+      "userId": 3,
+      "dateOrder": "2/2/2022",
+      "orderDetail": [
+        {
+          "id": "1",
+          "quantity": "2",
+          "isReview": false,
+          "note": "cay"
+        },
+        {
+          "id": "2",
+          "quantity": "1",
+          "isReview": false,
+          "note": ""
+        }
+      ],
+      "status": "Completed",
+      "totalMoney": 555000,
+      "id": 1
+    },
+    {
+      "userId": 3,
+      "dateOrder": "2/2/2022",
+      "orderDetail": [
+        {
+          "id": "1",
+          "quantity": "2",
+          "isReview": false,
+          "note": "cay"
+        },
+        {
+          "id": "2",
+          "quantity": "1",
+          "isReview": false,
+          "note": ""
+        }
+      ],
+      "status": "Completed",
+      "totalMoney": 84000,
+      "id": 2
+    },
+    {
+      "userId": 4,
+      "dateOrder": "2/2/2022",
+      "orderDetail": [
+        {
+          "id": "1",
+          "quantity": "2",
+          "isReview": false,
+          "note": "cay"
+        },
+        {
+          "id": "2",
+          "quantity": "1",
+          "isReview": false,
+          "note": ""
+        }
+      ],
+      "status": "Processing",
+      "totalMoney": 84000,
+      "id": 3
+    },
+    {
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "address": "fref",
+      "orderDetail": [
+        {
+          "id": 1,
+          "quantity": 5,
+          "isReview": false
+        },
+        {
+          "id": 2,
+          "quantity": 1,
+          "isReview": false
+        },
+        {
+          "id": 3,
+          "quantity": 1,
+          "isReview": false
+        },
+        {
+          "id": 4,
+          "quantity": 1,
+          "isReview": false
+        }
+      ],
+      "totalMoney": 76.2,
+      "status": "Placed",
+      "dateOrder": 1657011238193,
       "id": 4
     },
     {
-      "email": "quy3@gmail.com",
-      "password": "$2a$10$v2ueWx.UiQZmc1BOx.VE1.f5Pgzyw/6nOT9/zQZmG5YKIHdhpEBKq",
-      "firstName": "ẻfrfr",
-      "lastName": "grgr",
-      "phone": "0918992240",
-      "address": "rgr",
-      "isAdmin": false,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "address": "fref",
+      "orderDetail": [
+        {
+          "id": 1,
+          "quantity": 5,
+          "isReview": false
+        },
+        {
+          "id": 2,
+          "quantity": 1,
+          "isReview": false
+        },
+        {
+          "id": 3,
+          "quantity": 1,
+          "isReview": false
+        },
+        {
+          "id": 4,
+          "quantity": 1,
+          "isReview": false
+        }
+      ],
+      "totalMoney": 76.2,
+      "status": "Placed",
+      "dateOrder": 1657011295671,
       "id": 5
+    },
+    {
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "address": "fref",
+      "orderDetail": [
+        {
+          "id": 1,
+          "quantity": 5,
+          "isReview": false
+        },
+        {
+          "id": 2,
+          "quantity": 1,
+          "isReview": false
+        },
+        {
+          "id": 3,
+          "quantity": 1,
+          "isReview": false
+        },
+        {
+          "id": 4,
+          "quantity": 1,
+          "isReview": false
+        }
+      ],
+      "totalMoney": 76.2,
+      "status": "Cancelled",
+      "dateOrder": 1657011313707,
+      "id": 6
+    },
+    {
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "address": "fref",
+      "orderDetail": [
+        {
+          "id": 1,
+          "quantity": 5,
+          "isReview": false
+        },
+        {
+          "id": 2,
+          "quantity": 1,
+          "isReview": false
+        },
+        {
+          "id": 3,
+          "quantity": 1,
+          "isReview": false
+        },
+        {
+          "id": 4,
+          "quantity": 1,
+          "isReview": false
+        }
+      ],
+      "totalMoney": 76.2,
+      "status": "Cancelled",
+      "dateOrder": 1657011595471,
+      "id": 7
+    },
+    {
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "address": "fref",
+      "orderDetail": [
+        {
+          "id": 1,
+          "quantity": 5,
+          "isReview": true
+        },
+        {
+          "id": 2,
+          "quantity": 1,
+          "isReview": true
+        },
+        {
+          "id": 3,
+          "quantity": 1,
+          "isReview": true
+        },
+        {
+          "id": 4,
+          "quantity": 1,
+          "isReview": true
+        }
+      ],
+      "totalMoney": 76.2,
+      "status": "Completed",
+      "dateOrder": 1657011602217,
+      "id": 8
+    },
+    {
+      "userId": null,
+      "firstName": "phan thi",
+      "lastName": "quy",
+      "phone": "0918983340",
+      "address": "Ha Tinh",
+      "orderDetail": [
+        {
+          "id": 1,
+          "quantity": 2,
+          "isReview": false
+        },
+        {
+          "id": 2,
+          "quantity": 2,
+          "isReview": false
+        }
+      ],
+      "totalMoney": 34.2,
+      "status": "Cancelled",
+      "dateOrder": 1657013051657,
+      "id": 9
+    },
+    {
+      "userId": 4,
+      "firstName": "p anh",
+      "lastName": "phan",
+      "phone": "0918982354",
+      "address": "Ha Dong",
+      "orderDetail": [
+        {
+          "id": 9,
+          "quantity": 10,
+          "isReview": false
+        }
+      ],
+      "totalMoney": 66.5,
+      "status": "Shipping",
+      "dateOrder": 1657025016224,
+      "id": 10
+    },
+    {
+      "userId": null,
+      "firstName": "erftwe",
+      "lastName": "rwqerw",
+      "phone": "0918982240",
+      "address": "rqwer",
+      "orderDetail": [
+        {
+          "id": 1,
+          "quantity": 2,
+          "isReview": false
+        }
+      ],
+      "totalMoney": 15.2,
+      "status": "Placed",
+      "dateOrder": 1657091640831,
+      "id": 11
+    },
+    {
+      "userId": null,
+      "firstName": "tret",
+      "lastName": "dftg",
+      "phone": "ter",
+      "address": "terte",
+      "orderDetail": [
+        {
+          "id": 3,
+          "quantity": 2,
+          "isReview": false
+        }
+      ],
+      "totalMoney": 46,
+      "status": "Completed",
+      "dateOrder": 1657091783950,
+      "id": 12
+    },
+    {
+      "userId": 4,
+      "firstName": "quy phan",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "address": "fref",
+      "orderDetail": [
+        {
+          "id": 1,
+          "quantity": 5,
+          "isReview": true
+        }
+      ],
+      "totalMoney": 38,
+      "status": "Completed",
+      "dateOrder": 1657161096228,
+      "id": 13
+    },
+    {
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan phan",
+      "phone": "0918982240",
+      "address": "fref",
+      "orderDetail": [
+        {
+          "id": 6,
+          "quantity": 1,
+          "isReview": true
+        },
+        {
+          "id": 1,
+          "quantity": 1,
+          "isReview": true
+        },
+        {
+          "id": 2,
+          "quantity": 1,
+          "isReview": true
+        },
+        {
+          "id": 3,
+          "quantity": 1,
+          "isReview": true
+        }
+      ],
+      "totalMoney": 49.6,
+      "status": "Completed",
+      "dateOrder": 1657182832143,
+      "id": 14
+    }
+  ],
+  "homePage": {
+    "popular": [
+      1,
+      2,
+      3,
+      6,
+      7,
+      8,
+      9,
+      5
+    ],
+    "newDishes": [
+      1,
+      2,
+      3,
+      6
+    ]
+  },
+  "rates": [
+    {
+      "point": 5,
+      "review": "cvzsdcd",
+      "isAnonymous": true,
+      "foodId": 1,
+      "userId": 4,
+      "firstName": "quy phan",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "dateRate": 1657475797142,
+      "id": 1
+    },
+    {
+      "point": 5,
+      "review": "sdw",
+      "isAnonymous": true,
+      "foodId": 6,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan phan",
+      "phone": "0918982240",
+      "dateRate": 1657475864346,
+      "id": 2
+    },
+    {
+      "point": 5,
+      "review": "dưedwae",
+      "isAnonymous": true,
+      "foodId": 2,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan phan",
+      "phone": "0918982240",
+      "dateRate": 1657475869281,
+      "id": 3
+    },
+    {
+      "point": 5,
+      "review": "fsdafsdf",
+      "isAnonymous": true,
+      "foodId": 1,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "dateRate": 1657475883018,
+      "id": 4
+    },
+    {
+      "point": 5,
+      "review": "cdss",
+      "foodId": 1,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan phan",
+      "phone": "0918982240",
+      "dateRate": 1657475916586,
+      "id": 5
+    },
+    {
+      "point": 3,
+      "review": "vds",
+      "foodId": 3,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "dateRate": 1657475961441,
+      "id": 6
+    },
+    {
+      "point": 4,
+      "review": "fdvdfv",
+      "isAnonymous": true,
+      "foodId": 3,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan phan",
+      "phone": "0918982240",
+      "dateRate": 1657480895335,
+      "id": 7
+    },
+    {
+      "point": 4,
+      "review": "dfefvsdvdf",
+      "isAnonymous": true,
+      "foodId": 3,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "dateRate": 1657481495948,
+      "id": 8
+    },
+    {
+      "point": 5,
+      "review": "good",
+      "isAnonymous": true,
+      "foodId": 2,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "dateRate": 1657505690353,
+      "id": 9
+    },
+    {
+      "point": 1,
+      "review": "wewf",
+      "isAnonymous": false,
+      "foodId": 4,
+      "userId": 4,
+      "firstName": "quy",
+      "lastName": "phan",
+      "phone": "0918982240",
+      "dateRate": 1657505736952,
+      "id": 10
     }
   ]
 }

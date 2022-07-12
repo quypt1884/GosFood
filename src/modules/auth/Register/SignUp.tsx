@@ -1,19 +1,18 @@
 import { Button, Checkbox, Col, Form, Input, notification, Row } from "antd";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import { AppDispatch, RootState } from "store";
 import { InitialStateType, register, reset } from "store/authSlice";
 
 const SignUp = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
 
   const { users, isError, message, token }: InitialStateType = useSelector(
     (state: RootState) => state.auth
   );
-  useEffect(() => {
+
+  const getData = useCallback(() => {
     if (isError) {
       notification.error({
         message: "Error sign up",
@@ -27,14 +26,15 @@ const SignUp = () => {
       });
     }
     dispatch(reset());
-  }, [users]);
+  }, [users, token, isError, message, dispatch]);
+
+  useEffect(() => {
+    getData()
+  }, [getData]);
   function handleSubmit(values: any) {
     dispatch(register(values));
   }
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
   return (
     <div className="my-9 max-w-7xl mx-auto">
       <h1 className="flex justify-center text-2xl text-[#f16331]">Sign up</h1>
@@ -42,7 +42,6 @@ const SignUp = () => {
         name="basic"
         initialValues={{ remember: true }}
         onFinish={handleSubmit}
-        onFinishFailed={onFinishFailed}
         autoComplete="on"
         className="mt-3 w-1/2 mx-auto"
       >
