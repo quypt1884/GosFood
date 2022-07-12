@@ -7,8 +7,8 @@ const AppLayout = () => {
   return (
     <>
       <Header />
-      <div className="min-h-[70vh]">
-        <Outlet />
+      <div className="min-h-[70vh] mx-auto my-0 max-w-7xl">
+        <Outlet/>
       </div>
       <Footer />
     </>

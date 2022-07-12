@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+img {
+  display: inline;
+}
+
 * {
   font-family: 'Poppins', sans-serif;
 }

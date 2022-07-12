@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { Button, Checkbox, Form, Input, notification } from "antd";
 import { FC, useEffect } from "react";
 
@@ -8,7 +7,6 @@ import { InitialStateType, login, reset } from "store/authSlice";
 
 const Login: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
 
   const { users, isError, message, token }: InitialStateType = useSelector(
     (state: RootState) => state.auth

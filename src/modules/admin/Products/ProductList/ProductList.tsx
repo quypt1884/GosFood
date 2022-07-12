@@ -1,139 +1,216 @@
-import { Card, Col, Image, List, Row } from "antd";
-import food1 from "assets/food/food-1.jpg";
-import food2 from "assets/food/food-2.jpg";
-import food3 from "assets/food/food-3.jpg";
-import food4 from "assets/food/food-4.jpg";
-import { Link } from "react-router-dom";
 import {
-  PATH_ADMIN_PRODUCT_ADD,
-  PATH_ADMIN_PRODUCT_DETAIL
+  ArrowDownOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  FileAddOutlined
+} from "@ant-design/icons";
+import { Image, message, Popconfirm, Row, Select, Table } from "antd";
+import { ColumnsType } from "antd/lib/table";
+import { convertMoney } from "helpers/convertMoney";
+import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
+import {
+  PATH_ADMIN_PRODUCT,
+  PATH_ADMIN_PRODUCT_ADD
 } from "routes/routes.paths";
-const data = [
-  {
-    title: "Title 1",
-    img: food1,
-    name: "Pizza"
-  },
-  {
-    title: "Title 2",
-    img: food2,
-    name: "Veg Sandwich"
-  },
-  {
-    title: "Title 3",
-    img: food3,
-    name: "Beef Grilled"
-  },
-  {
-    title: "Title 4",
-    img: food4,
-    name: "Pizza Grilled"
-  },
-  {
-    title: "Title 4",
-    img: food4,
-    name: "Pizza Grilled"
-  },
-  {
-    title: "Title 4",
-    img: food4,
-    name: "Pizza Grilled"
-  },
-  {
-    title: "Title 4",
-    img: food4,
-    name: "Pizza Grilled"
-  },
-  {
-    title: "Title 4",
-    img: food4,
-    name: "Pizza Grilled"
-  },
-  {
-    title: "Title 4",
-    img: food4,
-    name: "Pizza Grilled"
-  },
-  {
-    title: "Title 4",
-    img: food4,
-    name: "Pizza Grilled"
-  }
-];
+import { AppDispatch, RootState } from "store";
+import { getListCategories } from "store/categoriesSlice";
+import { deleteProduct, getListProducts } from "store/productsSlice";
+import { ICategory } from "types/category.model";
+import { IProduct } from "types/product.model";
+
+const { Option } = Select;
 const ProductList = () => {
+  const columns: ColumnsType<IProduct> = [
+    {
+      title: "No",
+      sorter: (a, b) => a.id - b.id,
+      render: (text, record) => {
+        return products.indexOf(record) + 1;
+      },
+      width: "2%"
+    },
+    {
+      title: "img",
+      dataIndex: "",
+      render: (product) => (
+        <>
+          <Image src={product.thumbnail} alt="image product" />
+        </>
+      ),
+      width: "5%"
+    },
+    {
+      title: "Name",
+      render: (product: IProduct) => (
+        <Link to={PATH_ADMIN_PRODUCT + "/" + product.id}>{product.name}</Link>
+      ),
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      width: "20%"
+    },
+    {
+      title: "Category",
+      render: (product: IProduct) => (
+        <>
+          {
+            categories.find(
+              (category: ICategory) => category.id === product.categoryId
+            )?.name
+          }
+        </>
+      ),
+      width: "10%"
+    },
+    {
+      title: "Price",
+      render: (product: IProduct) => (
+        <>
+          {convertMoney(Number(product.newPrice))}
+          <div className="flex items-center">
+            {product.discount ? (
+              <>
+                <ArrowDownOutlined className="text-red-600 mr-2" />
+                <span className="text-red-600">{product.discount} %</span>
+              </>
+            ) : (
+              ""
+            )}
+          </div>
+        </>
+      ),
+      width: "5%"
+    },
+    {
+      title: "Status",
+      render: (product: IProduct) => (
+        <>
+          {product.isStock ? (
+            <span className="bg-green-600 rounded px-2 py-1 text-white">
+              Instock
+            </span>
+          ) : (
+            <span className="bg-[#f16331] rounded px-2 py-1 text-white">
+              Out of Stock
+            </span>
+          )}
+        </>
+      ),
+      width: "8%"
+    },
+    {
+      title: "",
+      dataIndex: "",
+      render: (product: IProduct) => (
+        <>
+          <Link to={"/admin/product/edit/" + product.id}>
+            <EditOutlined
+              className="text-emerald-400 text-lg ml-4 hover:translate-x-0.5 hover:translate-y-0.5"
+              title="Edit"
+            />
+          </Link>
+          <Popconfirm
+            placement="bottomLeft"
+            title={`Are you sure to delete ${product.name}?`}
+            onConfirm={() => confirm(product.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined
+              className="text-red-400 text-lg ml-4 hover:translate-x-0.5 hover:translate-y-0.5"
+              title="Delete"
+            />
+          </Popconfirm>
+        </>
+      ),
+      width: "7%"
+    }
+  ];
+
+  const pageSize = 5;
+  const [pagination, setpagination] = useState<{
+    data: IProduct[];
+    curent: number;
+    minIndex: number;
+    maxIndex: number;
+  }>({
+    data: [],
+    curent: 1,
+    minIndex: 0,
+    maxIndex: 0
+  });
+  const [status, setStatus] = useState<string>("");
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { products, total } = useSelector((state: RootState) => state.product);
+  const { categories } = useSelector((state: RootState) => state.category);
+
+  const handleChangePanigate = (page: number) => {
+    setpagination({
+      data: products,
+      curent: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize
+    });
+  };
+
+  const getData = useCallback(() => {
+    dispatch(getListProducts(status));
+    dispatch(getListCategories());
+  }, [dispatch, status]);
+
+  useEffect(() => {
+    getData();
+    setpagination({
+      data: products,
+      curent: 1,
+      minIndex: 1,
+      maxIndex: pageSize
+    });
+  }, [getData, total]);
+
+  const confirm = (id: number) => {
+    message.success("Delete success");
+    dispatch(deleteProduct(id));
+  };
+
+  const handleChangStatus = (e: any) => {
+    setStatus(e.target.value);
+  };
+
+  console.log(status);
   return (
     <>
-      <Link
-        to={PATH_ADMIN_PRODUCT_ADD}
-        className="px-2 py-1 rounded bg-[#f16331] text-white hover:text-white"
-      >
-        Add Product
-      </Link>
-      <List
-        className="mt-4"
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 4,
-          lg: 4,
-          xl: 4,
-          xxl: 3
+      <Row className="mb-3">
+        <Link
+          to={PATH_ADMIN_PRODUCT_ADD}
+          className="px-2 py-1 rounded bg-[#f16331] text-white hover:text-white mb-3 flex items-center justify-between"
+        >
+          <FileAddOutlined className="mr-1 text-lg" />
+          Add Product
+        </Link>
+
+        <select
+          onChange={handleChangStatus}
+          className="border-[1px] border-slate-300 h-9 ml-6 rounded-md"
+        >
+          <option value="">Select to filter status </option>
+          <option value="true">InStock</option>
+          <option value="false">Out of Stock</option>
+        </select>
+      </Row>
+      <Table
+        columns={columns}
+        dataSource={products}
+        rowKey={(record) => record.id}
+        pagination={{
+          current: pagination.curent,
+          total: pagination.data.length,
+          pageSize: pageSize,
+          onChange: handleChangePanigate
         }}
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item>
-            <Image height={150} preview={true} src={item.img} />
-            <Card>
-              <Row>
-                <Col span={12}>
-                  <Link
-                    to={PATH_ADMIN_PRODUCT_DETAIL}
-                    className="hover:text-[#f16331]"
-                  >
-                    Beef Grilled
-                  </Link>
-                </Col>
-                <Col span={12} className="text-right">
-                  27.000đ
-                </Col>
-              </Row>
-              <Row className="mt-3">
-                <Col span={24} className="text-right">
-                  <span className="bg-green-600 text-white px-2 rounded">
-                    In Stock
-                  </span>
-                </Col>
-              </Row>
-              <Row className="mt-3 h-16 overflow-hidden text-ellipsis ">
-                <Col>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
-                  ipsa at delectus? Aut libero nihil voluptatum, iste
-                  consectetur nobis, perferendis cum facere provident ipsum,
-                  sequi at! Eveniet est nam porro?
-                </Col>
-              </Row>
-              <Row className="mt-3">
-                <Col span={12}>
-                  <Link
-                    to=""
-                    className="px-2 py-1 rounded bg-[#f16331] text-white hover:bg-red-600 hover:text-white"
-                  >
-                    Remove
-                  </Link>
-                </Col>
-                <Col span={12} className="text-right">
-                  <Link
-                    to=""
-                    className="px-2 py-1 rounded bg-black text-white hover:text-white"
-                  >
-                    Edit
-                  </Link>
-                </Col>
-              </Row>
-            </Card>
-          </List.Item>
-        )}
       />
     </>
   );

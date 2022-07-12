@@ -1,13 +1,16 @@
 import {
+  AppstoreOutlined,
+  BarsOutlined,
+  DropboxOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ShoppingCartOutlined,
-  UploadOutlined,
-  VideoCameraOutlined
+  UserOutlined,
 } from "@ant-design/icons";
 import { Layout } from "antd";
 import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
+
 import {
   PATH_ADMIN,
   PATH_ADMIN_CATEGORY,
@@ -17,6 +20,7 @@ import {
 } from "routes/routes.paths";
 import "./AdminLayout.style.css";
 import logo from "assets/logo.png";
+import AdminHeader from "components/AdminHeader/AdminHeader";
 
 const { Header, Sider, Content } = Layout;
 
@@ -27,7 +31,7 @@ const AdminLayout: React.FC = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Sider theme="light" trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
-          <img src={logo} alt="Logo" />
+          <Link to={PATH_ADMIN}><img src={logo} alt="Logo" /></Link>
         </div>
         <ul className="p-0 m-0">
           <li className="list-none my-1 text-black hover:bg-[#fbe0d6]">
@@ -39,7 +43,7 @@ const AdminLayout: React.FC = () => {
                   : "py-3 px-4 hover:text-[#f16331] flex items-center"
               }
             >
-              <ShoppingCartOutlined className="mr-2" />
+              <BarsOutlined className="mr-2" />
               {collapsed ? "" : "Dashboard"}
             </NavLink>
           </li>
@@ -52,7 +56,7 @@ const AdminLayout: React.FC = () => {
                   : "py-3 px-4 hover:text-[#f16331] flex items-center"
               }
             >
-              <UploadOutlined className="mr-2" />
+              <AppstoreOutlined className="mr-2" />
               {collapsed ? "" : "Category"}
             </NavLink>
           </li>
@@ -65,7 +69,7 @@ const AdminLayout: React.FC = () => {
                   : "py-3 px-4 hover:text-[#f16331] flex items-center"
               }
             >
-              <VideoCameraOutlined className="mr-2" />
+              <DropboxOutlined className="mr-2" />
               {collapsed ? "" : "Product"}
             </NavLink>
           </li>
@@ -91,14 +95,14 @@ const AdminLayout: React.FC = () => {
                   : "py-3 px-4 hover:text-[#f16331] flex items-center"
               }
             >
-              <VideoCameraOutlined className="mr-2" />
+              <UserOutlined className="mr-2" />
               {collapsed ? "" : "User"}
             </NavLink>
           </li>
         </ul>
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
+        <Header className="site-layout-background flex justify-between items-center" style={{ padding: 0 }}>
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
@@ -106,6 +110,7 @@ const AdminLayout: React.FC = () => {
               onClick: () => setCollapsed(!collapsed)
             }
           )}
+          <AdminHeader/>
         </Header>
         <Content
           className="site-layout-background"

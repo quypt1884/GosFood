@@ -1,8 +1,10 @@
-import React from 'react'
+import CategoriEdit from 'modules/admin/Categories/CategoriEdit/CategoriEdit'
 
 const CategoriEditPage = () => {
   return (
-    <div>CategoriEditPage</div>
+    <>
+      <CategoriEdit/>
+    </>
   )
 }
 
