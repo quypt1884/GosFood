@@ -1,4 +1,4 @@
-import { message, Popconfirm, Row } from "antd";
+import { message, PaginationProps, Popconfirm, Row } from "antd";
 import { DeleteOutlined, FileAddOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
 import { FC, useCallback, useEffect, useState } from "react";
@@ -14,35 +14,12 @@ import CategoriEdit from "../CategoriEdit/CategoriEdit";
 
 const CategoriList: FC = () => {
   const pageSize = 3;
-  const [pagination, setpagination] = useState<{
-    data: ICategory[];
-    curent: number;
-    minIndex: number;
-    maxIndex: number;
-  }>({
-    data: [],
-    curent: 1,
-    minIndex: 0,
-    maxIndex: 0
-  });
+  const [curent, setCurent] = useState<number>(1);
 
   const dispatch = useDispatch<AppDispatch>();
   const { categories, total } = useSelector(
     (state: RootState) => state.category
   );
-
-  const handleChangePanigate = (page: number) => {
-    setpagination({
-      data: categories,
-      curent: page,
-      minIndex: (page - 1) * pageSize,
-      maxIndex: page * pageSize
-    });
-  };
-  const confirm = (id: any) => {
-    message.success("Delete success.");
-    dispatch(deleteCategory(id));
-  };
 
   const getData = useCallback(() => {
     dispatch(getListCategories());
@@ -50,13 +27,18 @@ const CategoriList: FC = () => {
 
   useEffect(() => {
     getData();
-    setpagination({
-      data: categories,
-      curent: 1,
-      minIndex: 1,
-      maxIndex: pageSize
-    });
-  }, [getData, total, categories]);
+  }, [getData, total]);
+
+  
+
+  const handleConfirmDelete = (id: any) => {
+    message.success("Delete success.");
+    dispatch(deleteCategory(id));
+  };
+
+  const handleChangePanigate: PaginationProps["onChange"] = (page) => {
+    setCurent(page)
+  };
 
   const columns: ColumnsType<ICategory> = [
     {
@@ -87,7 +69,7 @@ const CategoriList: FC = () => {
           <Popconfirm
             placement="bottomLeft"
             title={`Are you sure to delete ${category.name}?`}
-            onConfirm={() => confirm(category.id)}
+            onConfirm={() => handleConfirmDelete(category.id)}
             okText="Yes"
             cancelText="No"
           >
@@ -115,8 +97,8 @@ const CategoriList: FC = () => {
         dataSource={categories}
         rowKey={(record) => record.id}
         pagination={{
-          current: pagination.curent,
-          total: pagination.data.length,
+          current: curent,
+          total: categories.length,
           pageSize: pageSize,
           onChange: handleChangePanigate
         }}

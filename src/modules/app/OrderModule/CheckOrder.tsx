@@ -1,14 +1,18 @@
-import { SearchOutlined } from "@ant-design/icons";
-import { Col, Row } from "antd";
+import { CloseSquareOutlined, DoubleRightOutlined, SearchOutlined } from "@ant-design/icons";
+import { Col, Empty, message, notification, Popconfirm, Row } from "antd";
 import { convertDateNowToDayMonthYear } from "helpers/convertDate";
-import { convertMoney } from "helpers/convertMoney";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "store";
+
+import { convertMoney } from "helpers/convertMoney";
+import { AppDispatch, RootState } from "store";
+import { updateOrder } from "store/orderSlice";
 import { IOrder } from "types/order.model";
 
 const CheckOrder = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [checkOrder, setCheckOrder] = useState<string>("");
   const [listOrderCheck, setListOrderCheck] = useState<IOrder[]>([]);
   const { orders } = useSelector((state: RootState) => state.order);
@@ -34,6 +38,10 @@ const CheckOrder = () => {
     }
   };
 
+  const handleClickCancelOrder = (value: IOrder) => {
+    dispatch(updateOrder({ ...value, status: "Cancelled" }));
+    message.success("Success cancel");
+  };
   return (
     <>
       <div className="flex justify-center items-center mt-3">
@@ -57,92 +65,146 @@ const CheckOrder = () => {
           </div>
         </div>
       </div>
-      {listOrderCheck.length > 0 && (
+      {listOrderCheck.length > 0 ? (
         <div className="w-[80%] mx-auto">
           <h1 className="text-center text-2xl font-semibold my-6">
             List Order
           </h1>
           <Row className="flex justify-between items-center font-semibold py-3 border-b-[1px] border-b-slate-300">
             <Col span={2}>ID</Col>
-            <Col span={4}>Phone</Col>
-            <Col span={3}>Name</Col>
-            <Col span={2}>Status</Col>
-            <Col span={8} className="ml-1">
+            <Col span={3}>Phone</Col>
+            <Col span={4}>Name</Col>
+            <Col span={3}>Status</Col>
+            <Col span={7} className="ml-1">
               Address
             </Col>
             <Col span={2}>Total</Col>
-            <Col span={2}></Col>
+            <Col span={2}>Cancel order</Col>
           </Row>
-          {listOrderCheck.map((order: IOrder) => {
-            return (
-              <Row
-                key={order.id}
-                className="flex justify-between items-center py-3 border-b-[1px] border-b-slate-300"
-              >
-                <Col span={2}>
-                  {convertDateNowToDayMonthYear(Number(order.dateOrder))}
-                </Col>
-                <Col span={4}>{order.phone}</Col>
-                <Col span={3}>
-                  {order.firstName} {order.lastName}
-                </Col>
-                {order.status === "Cancelled" && (
-                  <Col
-                    span={2}
-                    className="bg-red-600 rounded px-2 py-1 text-white"
-                  >
-                    {order.status}
+          <>
+            {listOrderCheck.map((order: IOrder) => {
+              return (
+                <div className="py-3 border-b-[1px] border-b-slate-300">
+                  <Row
+                  key={order.id}
+                  className="flex justify-between items-center "
+                >
+                  <Col span={2}>
+                    {convertDateNowToDayMonthYear(Number(order.dateOrder))}
                   </Col>
-                )}
-                {order.status === "Completed" && (
-                  <Col
-                    span={2}
-                    className="bg-green-600 rounded px-2 py-1 text-white"
-                  >
-                    {order.status}
+                  <Col span={3}>{order.phone}</Col>
+                  <Col span={4}>
+                    {order.firstName} {order.lastName}
                   </Col>
-                )}
-                {order.status === "Placed" && (
-                  <Col
-                    span={2}
-                    className="bg-sky-500 rounded px-2 py-1 text-white"
-                  >
-                    {order.status}
+                  {order.status === "Cancelled" && (
+                    <Col span={3}>
+                      <p className="bg-red-600 inline-block rounded px-0.5 py-1 text-white">
+                        {order.status}
+                      </p>
+                    </Col>
+                  )}
+                  {order.status === "Completed" && (
+                    <Col span={3}>
+                      <p className="bg-green-600 inline-block rounded px-0.5 py-1 text-white">
+                        {order.status}
+                      </p>
+                    </Col>
+                  )}
+                  {order.status === "Placed" && (
+                    <Col span={3}>
+                      <span className="bg-sky-500 inline-block rounded px-0.5 py-1 text-white">
+                        {order.status}
+                      </span>
+                    </Col>
+                  )}
+                  {order.status === "Shipping" && (
+                    <Col span={3}>
+                      <p className="bg-sky-500 inline-block rounded px-0.5 py-1 text-white">
+                        {order.status}
+                      </p>
+                    </Col>
+                  )}
+                  {order.status === "Processing" && (
+                    <Col span={3}>
+                      <p className="bg-sky-500 inline-block rounded px-0.5 py-1 text-white">
+                        {order.status}
+                      </p>
+                    </Col>
+                  )}
+                  <Col span={7} className="ml-1">
+                    <p>{order.address}</p>
                   </Col>
-                )}
-                {order.status === "Shipping" && (
-                  <Col
-                    span={2}
-                    className="bg-sky-500 rounded px-2 py-1 text-white"
-                  >
-                    {order.status}
+                  <Col span={2}>
+                    <p>{convertMoney(Number(order.totalMoney))}</p>
                   </Col>
-                )}
-                {order.status === "Processing" && (
-                  <Col
-                    span={2}
-                    className="bg-sky-500 rounded px-2 py-1 text-white"
-                  >
-                    {order.status}
+                  <Col span={2}>
+                    {order.status === "Placed" ? (
+                      <div>
+                        <Popconfirm
+                          title="Are you cancle order"
+                          okText="Yes"
+                          cancelText="No"
+                          onConfirm={() => handleClickCancelOrder(order)}
+                        >
+                          <span className="text-lg text-red-500 p-0.5">
+                            <CloseSquareOutlined />
+                          </span>
+                        </Popconfirm>
+                      </div>
+                    ) : order.status === "Completed" ? (
+                      <div>
+                        <span
+                          className="text-lg text-red-500 p-0.5 cursor-pointer"
+                          onClick={() => {
+                            notification.warning({
+                              message: "Warring",
+                              description: "Order has been completed "
+                            });
+                          }}
+                        >
+                          <CloseSquareOutlined />
+                        </span>
+                      </div>
+                    ) : order.status === "Cancelled" ? (
+                      <div>
+                        <span className="text-lg text-red-200 p-0.5 cursor-pointer ">
+                          <CloseSquareOutlined />
+                        </span>
+                      </div>
+                    ) : (
+                      <div>
+                        <span
+                          className="text-lg text-red-500 p-0.5 cursor-pointer"
+                          onClick={() => {
+                            notification.warning({
+                              message: "Warring",
+                              description:
+                                "Order has been processed and cannot be canceled "
+                            });
+                          }}
+                        >
+                          <CloseSquareOutlined />
+                        </span>
+                      </div>
+                    )}
                   </Col>
-                )}
-                <Col span={8} className="ml-1">
-                  {order.address}
-                </Col>
-                <Col span={2}>{convertMoney(Number(order.totalMoney))}</Col>
-                <Col span={2}>
+                </Row>
+                <Row className="flex justify-end">
                   <Link
                     to={`/app/order/${order.id}`}
-                    className="inline-block p-1 bg-[#f16331] text-white hover:bg-opacity-95 rounded"
+                    className="flex items-center justify-self-end text-end p-1 text-[#f16331]"
                   >
-                    Detail
+                    Info detail <DoubleRightOutlined />
                   </Link>
-                </Col>
-              </Row>
-            );
-          })}
+                </Row>
+                </div>
+              );
+            })}
+          </>
         </div>
-      )}
+      ): <div className="flex justify-center items-center mt-10">
+      <Empty description={"No data"} />
+    </div>}
     </>
   );
 };

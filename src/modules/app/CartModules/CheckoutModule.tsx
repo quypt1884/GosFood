@@ -38,7 +38,7 @@ const CheckoutModule = () => {
       })
     ).unwrap().then((response)=>{
       dispatch(clearCart());
-      navigate(`/app/order/${response.id}`)
+      navigate(`/app/order/${Number(response.id)}`)
     });
   };
 

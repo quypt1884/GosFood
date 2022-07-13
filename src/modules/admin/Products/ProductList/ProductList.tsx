@@ -4,7 +4,7 @@ import {
   EditOutlined,
   FileAddOutlined
 } from "@ant-design/icons";
-import { Image, message, Popconfirm, Row, Select, Table } from "antd";
+import { Image, message, PaginationProps, Popconfirm, Row, Select, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { convertMoney } from "helpers/convertMoney";
 import { useCallback, useEffect, useState } from "react";
@@ -22,7 +22,6 @@ import { deleteProduct, getListProducts } from "store/productsSlice";
 import { ICategory } from "types/category.model";
 import { IProduct } from "types/product.model";
 
-const { Option } = Select;
 const ProductList = () => {
   const columns: ColumnsType<IProduct> = [
     {
@@ -114,7 +113,7 @@ const ProductList = () => {
           <Popconfirm
             placement="bottomLeft"
             title={`Are you sure to delete ${product.name}?`}
-            onConfirm={() => confirm(product.id)}
+            onConfirm={() => handleConfirmDelete(product.id)}
             okText="Yes"
             cancelText="No"
           >
@@ -130,57 +129,36 @@ const ProductList = () => {
   ];
 
   const pageSize = 5;
-  const [pagination, setpagination] = useState<{
-    data: IProduct[];
-    curent: number;
-    minIndex: number;
-    maxIndex: number;
-  }>({
-    data: [],
-    curent: 1,
-    minIndex: 0,
-    maxIndex: 0
-  });
+  const [curent, setCurent] = useState<number>(1);
   const [status, setStatus] = useState<string>("");
 
   const dispatch = useDispatch<AppDispatch>();
   const { products, total } = useSelector((state: RootState) => state.product);
   const { categories } = useSelector((state: RootState) => state.category);
 
-  const handleChangePanigate = (page: number) => {
-    setpagination({
-      data: products,
-      curent: page,
-      minIndex: (page - 1) * pageSize,
-      maxIndex: page * pageSize
-    });
-  };
-
   const getData = useCallback(() => {
-    dispatch(getListProducts(status));
+    dispatch(getListProducts(status))
     dispatch(getListCategories());
   }, [dispatch, status]);
 
   useEffect(() => {
     getData();
-    setpagination({
-      data: products,
-      curent: 1,
-      minIndex: 1,
-      maxIndex: pageSize
-    });
   }, [getData, total]);
 
-  const confirm = (id: number) => {
+  const handleConfirmDelete = (id: number) => {
     message.success("Delete success");
     dispatch(deleteProduct(id));
   };
 
-  const handleChangStatus = (e: any) => {
-    setStatus(e.target.value);
+  const handleChangePanigate: PaginationProps["onChange"] = (page) => {
+    setCurent(page)
   };
 
-  console.log(status);
+  const handleChangStatus = (e: any) => {
+    setStatus(e.target.value);
+    setCurent(1);
+  };
+
   return (
     <>
       <Row className="mb-3">
@@ -206,8 +184,8 @@ const ProductList = () => {
         dataSource={products}
         rowKey={(record) => record.id}
         pagination={{
-          current: pagination.curent,
-          total: pagination.data.length,
+          current: curent,
+          total: products.length,
           pageSize: pageSize,
           onChange: handleChangePanigate
         }}
