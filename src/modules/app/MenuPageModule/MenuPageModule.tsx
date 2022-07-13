@@ -1,4 +1,4 @@
-import { Col, List, Pagination, PaginationProps, Row } from "antd";
+import { Col, List, message, Pagination, PaginationProps, Row } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -76,10 +76,12 @@ const MenuPageModule = () => {
 
   const handleChangeSort = (e: any) => {
     setSelectSort(e.target.value);
+    setCurrent(1);
   };
 
   const handleChangeOrder = (e: any) => {
     setSelectOrder(e.target.value);
+    setCurrent(1);
   };
 
   const handleChangeFilterCategory = (e: any) => {
@@ -89,6 +91,7 @@ const MenuPageModule = () => {
 
   const handleClickAddtoCart = (product: IProduct) => {
     dispatch(addToCart({ ...product, quantity: 1 }));
+    message.success("Add to cart success")
   };
 
   return (

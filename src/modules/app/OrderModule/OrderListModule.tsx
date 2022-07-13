@@ -8,6 +8,7 @@ import { convertMoney } from "helpers/convertMoney";
 import { AppDispatch, RootState } from "store";
 import { updateOrder } from "store/orderSlice";
 import { IOrder } from "types/order.model";
+import { convertDateNowToDayMonthYear } from "helpers/convertDate";
 
 const OrderListModule = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,11 +20,12 @@ const OrderListModule = () => {
     dispatch(updateOrder({ ...value, status: "Cancelled" }));
     message.success("Success cancel");
   };
+  console.log(orders)
   return (
     <div className="w-[80%] mx-auto">
       <h1 className="text-center text-2xl font-semibold my-6">List Order</h1>
       <Row className="flex justify-between items-center font-semibold py-3 border-b-[1px] border-b-slate-300">
-        <Col span={1}>ID</Col>
+        <Col span={2}>Date</Col>
         <Col span={3}>Phone</Col>
         <Col span={4}>Name</Col>
         <Col span={3}>Status</Col>
@@ -34,15 +36,15 @@ const OrderListModule = () => {
         <Col span={2}>Cancel order</Col>
       </Row>
       <>
-        {orders.map((order: IOrder, index: number) => {
-          if (order.userId === users.id)
+        {orders.map((order: IOrder) => {
+          if (order.userId === Number(users.id))
             return (
               <div
                 key={order.id}
                 className="py-3 border-b-[1px] border-b-slate-300"
               >
                 <Row className="flex justify-between items-center">
-                  <Col span={1}>{index + 1}</Col>
+                  <Col span={2}>{convertDateNowToDayMonthYear(Number(order.dateOrder))}</Col>
                   <Col span={3}>{order.phone}</Col>
                   <Col span={4}>
                     {order.firstName} {order.lastName}

@@ -6,7 +6,7 @@ import {
   UserOutlined,
   WifiOutlined
 } from "@ant-design/icons";
-import { List } from "antd";
+import { List, message } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -37,6 +37,8 @@ const HomePageModule = () => {
   const handleClickAddtoCart = (id: number) => {
     const productItem = products.find((product:IProduct)=> product.id === id)
     dispatch(addToCart({...productItem,quantity: 1}));
+    message.success("Add to cart success")
+
   };
   useEffect(() => {
     getProductPopular().then((response) => setPopular(response.data));

@@ -1,5 +1,5 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { message, Popconfirm, Table } from "antd";
+import { message, PaginationProps, Popconfirm, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { convertMoney } from "helpers/convertMoney";
 import { useCallback, useEffect, useState } from "react";
@@ -17,17 +17,7 @@ import OrderEdit from "./OrderEdit";
 const OrderList = () => {
   const pageSize = 5;
   const [status, setStatus] = useState<string>("");
-  const [pagination, setpagination] = useState<{
-    data: IOrder[];
-    curent: number;
-    minIndex: number;
-    maxIndex: number;
-  }>({
-    data: [],
-    curent: 1,
-    minIndex: 0,
-    maxIndex: 0
-  });
+  const [curent, setCurent] = useState<number>(1);
 
   const dispatch = useDispatch<AppDispatch>();
   const { orders, total } = useSelector((state: RootState) => state.order);
@@ -39,30 +29,20 @@ const OrderList = () => {
 
   useEffect(() => {
     getData();
-    setpagination({
-      data: orders,
-      curent: 1,
-      minIndex: 1,
-      maxIndex: pageSize
-    });
-  }, [getData, total, orders]);
+  }, [getData, total]);
 
   const handleConfirmDelete = (id: any) => {
     message.success("Delete success");
     dispatch(deleteOrder(id));
   };
 
-  const handleChangePanigate = (page: number) => {
-    setpagination({
-      data: orders,
-      curent: page,
-      minIndex: (page - 1) * pageSize,
-      maxIndex: page * pageSize
-    });
+  const handleChangePanigate: PaginationProps["onChange"] = (page) => {
+    setCurent(page)
   };
 
   const handleChangeStatus = (e: any) => {
     setStatus(e.target.value);
+    setCurent(1);
   };
   
   const columns: ColumnsType<IOrder> = [
@@ -170,8 +150,8 @@ const OrderList = () => {
         dataSource={orders}
         rowKey={(record) => record.id}
         pagination={{
-          current: pagination.curent,
-          total: pagination.data.length,
+          current: curent,
+          total: orders.length,
           pageSize: pageSize,
           onChange: handleChangePanigate
         }}
