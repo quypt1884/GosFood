@@ -11,7 +11,7 @@ import { getListOrder } from "store/orderSlice";
 import { IProduct } from "types/product.model";
 import { IOrder } from "types/order.model";
 import ReviewModule from "../ReviewModule/ReviewModule";
-import { PATH_USER_ORDER_LIST } from "routes/routes.paths";
+import { PATH_USER_CHECK_ORDER, PATH_USER_ORDER_LIST } from "routes/routes.paths";
 import ButtonLink from "components/Button/ButtonLink";
 
 const OrderDetailModule = () => {
@@ -20,6 +20,7 @@ const OrderDetailModule = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { products } = useSelector((state: RootState) => state.product);
   const { orders,isLoading } = useSelector((state: RootState) => state.order);
+  const { token } = useSelector((state: RootState) => state.auth);
 
   const orderItem = orders.find((order: IOrder) => {
     return order.id === Number(id);
@@ -207,13 +208,19 @@ const OrderDetailModule = () => {
               </>
             )}
           />
-          <ButtonLink
+          {token ? <ButtonLink
             to={PATH_USER_ORDER_LIST}
             className="bg-[#f16331] text-white hover:text-white mt-3 w-20"
           >
             <RollbackOutlined className="mr-1 text-base" />
             <span>Back</span>
-          </ButtonLink>
+          </ButtonLink> : <ButtonLink
+            to={PATH_USER_CHECK_ORDER}
+            className="bg-[#f16331] text-white hover:text-white mt-3 w-20"
+          >
+            <RollbackOutlined className="mr-1 text-base" />
+            <span>Back</span>
+          </ButtonLink>}
         </div>
       )}
     </>

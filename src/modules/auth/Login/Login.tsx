@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Checkbox, Form, Input, notification } from "antd";
+import { Button, Form, Input, notification, Row } from "antd";
 import { FC, useEffect } from "react";
 
 import { AppDispatch, RootState } from "store";
@@ -31,7 +31,7 @@ const Login: FC = () => {
       });
     }
     dispatch(reset());
-  }, [users]);
+  }, [users, token, dispatch]);
   function handleSubmit(values: any) {
     dispatch(login(values));
   }
@@ -40,22 +40,27 @@ const Login: FC = () => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div className="mx-auto my-0 max-w-7xl">
+    <div className="mx-auto my-0 max-w-7xl h-full">
       <h1 className="flex justify-center text-2xl text-[#f16331]">Sign in</h1>
       <Form
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
+        initialValues={{}}
         onFinish={handleSubmit}
         onFinishFailed={onFinishFailed}
         autoComplete="on"
-        className="my-9 w-1/2 mx-auto"
+        layout="vertical"
+        className="my-9 w-1/3 mx-auto"
       >
         <Form.Item
           label="Email"
           name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}
+          rules={[
+            { required: true, message: "Please input your email!" },
+            {
+              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+              message: "Email invalidate"
+            }
+          ]}
         >
           <Input />
         </Form.Item>
@@ -68,22 +73,16 @@ const Login: FC = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
-          <Checkbox className="focus:border-[#f16331]">Remember me</Checkbox>
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button
-            type="primary"
-            className="text-[#f16331] border-[#f16331] hover:bg-[#f16331] hover:border-[#f16331]"
-            htmlType="submit"
-          >
-            Submit
-          </Button>
+        <Form.Item>
+          <Row className="flex justify-center">
+            <Button
+              type="primary"
+              className="text-[#f16331] border-[#f16331] hover:bg-[#f16331] hover:border-[#f16331]"
+              htmlType="submit"
+            >
+              Submit
+            </Button>
+          </Row>
         </Form.Item>
       </Form>
     </div>

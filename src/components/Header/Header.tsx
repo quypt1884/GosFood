@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { notification } from "antd";
@@ -23,7 +23,7 @@ import Search from "components/Search/Search";
 
 const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
-
+  const navigate = useNavigate()
   const { cartItems } = useSelector((state: RootState) => state.cart);
   const { token, users } = useSelector((state: RootState) => state.auth);
 
@@ -37,6 +37,7 @@ const Header = () => {
     });
     dispatch(logout());
     dispatch(reset());
+    navigate("/")
   };
   return (
     <div className="mx-auto my-0 max-w-7xl">
@@ -124,7 +125,7 @@ const Header = () => {
                 ) : (
                   <>
                     <Link to={PATH_LOGIN}>Sign in</Link>
-                    <Link to={PATH_REGISTER}>Register</Link>
+                    <Link to={PATH_REGISTER}>Sign up</Link>
                   </>
                 )}
               </div>

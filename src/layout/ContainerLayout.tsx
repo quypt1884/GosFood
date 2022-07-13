@@ -48,6 +48,8 @@ import CheckoutPage from "pages/app/CartPage/CheckoutPage";
 import MyOrderListPage from "pages/app/OrderPage/MyOrderListPage";
 import CheckOrderPage from "pages/app/OrderPage/CheckOrderPage";
 import OrderDetaiUserPage from "pages/app/OrderPage/OrderDetaiUserPage";
+import PrivateAdmin from "hoc/PrivateAdmin";
+import PrivateUser from "hoc/PrivateUser";
 
 const ContainerLayout = () => {
   return (
@@ -56,35 +58,67 @@ const ContainerLayout = () => {
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path={PATH_UER_MENU} element={<MenuPage />} />
-          <Route path={PATH_UER_PRODUCT_DETAIL} element={<ProductDetailPageApp />} />
+          <Route
+            path={PATH_UER_PRODUCT_DETAIL}
+            element={<ProductDetailPageApp />}
+          />
           <Route path={PATH_USER_CHECK_ORDER} element={<CheckOrderPage />} />
           <Route path={PATH_USER_CART} element={<CartPage />} />
           <Route path={PATH_USER_CHECKOUT} element={<CheckoutPage />} />
-          <Route path={PATH_USER_ORDERDETAIL} element={<OrderDetaiUserPage />} />
-          <Route path={PATH_USER_ORDER_LIST} element={<MyOrderListPage />} />
+          <Route
+            path={PATH_USER_ORDERDETAIL}
+            element={<OrderDetaiUserPage />}
+          />
+          <Route element={<PrivateUser />}>
+            <Route path={PATH_USER_ORDER_LIST} element={<MyOrderListPage />} />
+          </Route>
+          <Route path="/*" element={<HomePage />} />
         </Route>
         <Route element={<AuthLayout />}>
           <Route path={PATH_LOGIN} element={<LoginPage />} />
           <Route path={PATH_REGISTER} element={<RegisterPage />} />
+          <Route path="/auth/*" element={<LoginPage />} />
         </Route>
-        <Route element={<AdminLayout />}>
-          <Route path={PATH_ADMIN} element={<Dashboard />} />
-          
-          <Route path={PATH_ADMIN_CATEGORY} element={<CategoriListPage />} />
-          <Route path={PATH_ADMIN_CATEGORY_DETAIL} element={<CategoriDetailPage />} />
-          <Route path={PATH_ADMIN_CATEGORY_ADD} element={<CategoriAddPage />} />
-          <Route path={PATH_ADMIN_CATEGORY_EDIT} element={<CategoriEditPage/>} />
+        <Route element={<PrivateAdmin />}>
+          <Route element={<AdminLayout />}>
+            <Route path={PATH_ADMIN} element={<Dashboard />} />
 
-          <Route path={PATH_ADMIN_USER} element={<UserListPage />} />
+            <Route path={PATH_ADMIN_CATEGORY} element={<CategoriListPage />} />
+            <Route
+              path={PATH_ADMIN_CATEGORY_DETAIL}
+              element={<CategoriDetailPage />}
+            />
+            <Route
+              path={PATH_ADMIN_CATEGORY_ADD}
+              element={<CategoriAddPage />}
+            />
+            <Route
+              path={PATH_ADMIN_CATEGORY_EDIT}
+              element={<CategoriEditPage />}
+            />
 
-          <Route path={PATH_ADMIN_PRODUCT} element={<ProductListPage />} />
-          <Route path={PATH_ADMIN_PRODUCT_ADD} element={<ProductAddPage />} />
-          <Route path={PATH_ADMIN_PRODUCT_EDIT} element={<ProductEditPage />} />
-          <Route path={PATH_ADMIN_PRODUCT_DETAIL} element={<ProductDetailPage />} />
+            <Route path={PATH_ADMIN_USER} element={<UserListPage />} />
 
-          <Route path={PATH_ADMIN_ORDER} element={<OrderListPage />} />
-          <Route path={PATH_ADMIN_ORDER_DETAIL} element={<OrderDetailPage />} />
+            <Route path={PATH_ADMIN_PRODUCT} element={<ProductListPage />} />
+            <Route path={PATH_ADMIN_PRODUCT_ADD} element={<ProductAddPage />} />
+            <Route
+              path={PATH_ADMIN_PRODUCT_EDIT}
+              element={<ProductEditPage />}
+            />
+            <Route
+              path={PATH_ADMIN_PRODUCT_DETAIL}
+              element={<ProductDetailPage />}
+            />
+
+            <Route path={PATH_ADMIN_ORDER} element={<OrderListPage />} />
+            <Route
+              path={PATH_ADMIN_ORDER_DETAIL}
+              element={<OrderDetailPage />}
+            />
+            <Route path="/admin/*" element={<Dashboard />} />
+          </Route>
         </Route>
+        <Route path="*" element={<Dashboard />} />
       </Routes>
     </div>
   );

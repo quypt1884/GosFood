@@ -2,14 +2,14 @@ import { UserOutlined } from "@ant-design/icons";
 import { Dropdown, Menu, notification } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATH_USER } from "routes/routes.paths";
 import { AppDispatch, RootState } from "store";
 import { logout, reset } from "store/authSlice";
 
 const AdminHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
-
+  const navigate = useNavigate();
   const { token, users } = useSelector((state: RootState) => state.auth);
 
   const handleClickLogout = () => {
@@ -18,6 +18,7 @@ const AdminHeader = () => {
     });
     dispatch(logout());
     dispatch(reset());
+    navigate("/");
   };
 
   const menu = (
@@ -41,13 +42,13 @@ const AdminHeader = () => {
         placement="bottomLeft"
         arrow={{ pointAtCenter: true }}
       >
-          <UserOutlined className="w-10 px-5 text-[#f16331] text-base" />
+        <UserOutlined className="w-10 px-5 text-[#f16331] text-base" />
       </Dropdown>
       {token && (
-          <span className="pl-2 flex items-center w-36">
-            {users?.firstName + " " + users?.lastName}
-          </span>
-        ) }
+        <span className="pl-2 flex items-center w-36">
+          {users?.firstName + " " + users?.lastName}
+        </span>
+      )}
     </div>
   );
 };

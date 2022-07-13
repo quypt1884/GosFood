@@ -1,4 +1,3 @@
-import { PATH_USER } from 'routes/routes.paths';
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -81,8 +80,6 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.users = {} as IUser;
-      window.location.href = PATH_USER;
-
     }
   },
   extraReducers(builder) {

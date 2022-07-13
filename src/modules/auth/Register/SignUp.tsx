@@ -1,4 +1,4 @@
-import { Button, Checkbox, Col, Form, Input, notification, Row } from "antd";
+import { Button, Col, Form, Input, notification, Row } from "antd";
 import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -29,7 +29,7 @@ const SignUp = () => {
   }, [users, token, isError, message, dispatch]);
 
   useEffect(() => {
-    getData()
+    getData();
   }, [getData]);
   function handleSubmit(values: any) {
     dispatch(register(values));
@@ -40,9 +40,10 @@ const SignUp = () => {
       <h1 className="flex justify-center text-2xl text-[#f16331]">Sign up</h1>
       <Form
         name="basic"
-        initialValues={{ remember: true }}
+        initialValues={{}}
         onFinish={handleSubmit}
         autoComplete="on"
+        layout="vertical"
         className="mt-3 w-1/2 mx-auto"
       >
         <Row>
@@ -108,8 +109,8 @@ const SignUp = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>
+        <Row className="flex justify-between">
+          <Col span={11}>
             <Form.Item
               label="First Name"
               name="firstName"
@@ -120,7 +121,7 @@ const SignUp = () => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={11}>
             <Form.Item
               label="Last Name"
               name="lastName"
@@ -132,8 +133,8 @@ const SignUp = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>
+        <Row className="flex justify-between">
+          <Col span={11}>
             <Form.Item
               label="Phone"
               name="phone"
@@ -148,7 +149,7 @@ const SignUp = () => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={11}>
             <Form.Item
               label="Address"
               name="address"
@@ -161,22 +162,16 @@ const SignUp = () => {
           </Col>
         </Row>
 
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
-          <Checkbox className="focus:border-[#f16331]">Remember me</Checkbox>
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button
-            type="primary"
-            className="text-[#f16331] border-[#f16331] hover:bg-[#f16331] hover:border-[#f16331]"
-            htmlType="submit"
-          >
-            Submit
-          </Button>
+        <Form.Item>
+          <Row className="flex justify-center">
+            <Button
+              type="primary"
+              className="text-[#f16331] border-[#f16331] hover:bg-[#f16331] hover:border-[#f16331]"
+              htmlType="submit"
+            >
+              Submit
+            </Button>
+          </Row>
         </Form.Item>
       </Form>
     </div>
